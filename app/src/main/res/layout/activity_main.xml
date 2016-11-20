@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <!-- your content layout -->
+    <!-- content layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,6 +25,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hello World" />
+
+        <com.felix.travel.MyViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="none">
+        </com.felix.travel.MyViewPager>
+
+        <com.felix.travel.BottomTab
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:tabGravity="fill"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="#FF4081"
+            app:tabTextColor="#000">
+        </com.felix.travel.BottomTab>
+
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
