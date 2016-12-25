@@ -59,7 +59,6 @@ public class TravelAreaFragment extends Fragment {
         mTravelInfoRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mTravelInfoRecyclerView.setAdapter(mTravelAreaAdapter);
 
-        prepareMovieData();
 
         GetTravelInfo getTravelInfo = new GetTravelInfo();
         getTravelInfo.execute();
@@ -68,15 +67,6 @@ public class TravelAreaFragment extends Fragment {
         return view;
     }
 
-    private void prepareMovieData() {
-        TravelInfo travelInfo = new TravelInfo();
-        mTravelInfoList.add(travelInfo);
-
-        travelInfo = new TravelInfo();
-        mTravelInfoList.add(travelInfo);
-
-        mTravelAreaAdapter.notifyDataSetChanged();
-    }
 
     private class GetTravelInfo extends AsyncTask<String, Integer, JSONArray> {
 
