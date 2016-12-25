@@ -11,14 +11,14 @@ import android.util.AttributeSet;
 public class BottomTab extends TabLayout {
 
     public static final int[] tabIcon_gray = new int[]{
-            R.drawable.ic_launcher,
-            R.drawable.ic_launcher,
-            R.drawable.ic_launcher};
+            R.drawable.coffee_blue_icon,
+            R.drawable.coffee_brown_icon,
+            R.drawable.coffee_white_icon};
 
     public static final int[] tabIcon_bule = new int[]{
-            R.drawable.ic_launcher,
-            R.drawable.ic_launcher,
-            R.drawable.ic_launcher};
+            R.drawable.coffee_blue_icon,
+            R.drawable.coffee_brown_icon,
+            R.drawable.coffee_white_icon};
 
     public static final String[] tabTitle = new String[]{"消息", "聯絡人", "動態"};
     private static final int NUM_TAD = 3;
