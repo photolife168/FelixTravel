@@ -3,4 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="openDrawer">Open Drawer</string>
     <string name="closeDrawer">Close Drawer</string>
+    <string name="travel_area_name">景點: </string>
+    <string name="travel_area_station">車站: </string>
 </resources>

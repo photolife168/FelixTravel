@@ -24,35 +24,25 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private BottomTab myTabLayout;
     private MyViewPager myViewPager;
     private int navItemId;
-    private BottomTab Mytable;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        initView();
-        initListeners(savedInstanceState);
-
+        init(savedInstanceState);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -66,10 +56,13 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         outState.putInt(NAV_ITEM_ID, navItemId);
     }
 
+    private void init(Bundle savedInstanceState){
+        initView();
+        initListeners(savedInstanceState);
+    }
+
 
     private void navigateTo(MenuItem menuItem){
-        //mContentView.setText(menuItem.getTitle());
-
         navItemId = menuItem.getItemId();
         menuItem.setChecked(true);
     }
@@ -147,7 +140,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     public void onTabSelected(TabLayout.Tab tab) {
         Log.i("TAB", "selected" + tab.getPosition());
         tab.setIcon(BottomTab.tabIcon_bule[tab.getPosition()]);
-        //toobat_centertv.setText(BottomTab.tabTitle[tab.getPosition()]);
         myViewPager.setCurrentItem(tab.getPosition());
     }
 

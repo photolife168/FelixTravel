@@ -35,21 +35,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TravelAreaFragment extends Fragment {
 
     private TextView mTvAreaInfo;
-    private List<TravelInfo> mTravelInfoList = new ArrayList<TravelInfo>();
     private RecyclerView mTravelInfoRecyclerView;
     private TravelAreaAdapter mTravelAreaAdapter;
-    private TravelInfo mTravelInfo;
-    private List<TravelInfo> travelInfoList = new ArrayList<>();
+    private List<TravelInfo> mTravelInfoList= new ArrayList<>();
 
     public TravelAreaFragment() {
-        // Required empty public constructor
+
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate layout
         View view = inflater.inflate(R.layout.fragment_travel_area, container, false);
         mTravelInfoRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_app_travel_area);
 
@@ -107,38 +103,38 @@ public class TravelAreaFragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            mTravelAreaAdapter.setItems(travelInfoList);
+            mTravelAreaAdapter.setItems(mTravelInfoList);
             mTravelAreaAdapter.notifyDataSetChanged();
         }
     }
 
     private void populateTravelInfo(JSONArray result) throws JSONException {
         for (int i = 0; i < result.length(); i++) {
-            mTravelInfo = new TravelInfo();
+            TravelInfo travelInfo = new TravelInfo();
             JSONObject travelObj = result.getJSONObject(i);
-            mTravelInfo.setId(travelObj.getString("_id"));
-            mTravelInfo.setRowNumber(travelObj.getString("RowNumber"));
-            mTravelInfo.setRefWp(travelObj.getString("REF_WP"));
-            mTravelInfo.setCat1(travelObj.getString("CAT1"));
-            mTravelInfo.setCat2(travelObj.getString("CAT2"));
-            mTravelInfo.setSerialNo(travelObj.getString("SERIAL_NO"));
-            mTravelInfo.setMemoTime(travelObj.getString("MEMO_TIME"));
-            mTravelInfo.setStitle(travelObj.getString("stitle"));
-            mTravelInfo.setxBody(travelObj.getString("xbody"));
-            mTravelInfo.setAvBegin(travelObj.getString("avBegin"));
-            mTravelInfo.setAvEnd(travelObj.getString("avEnd"));
-            mTravelInfo.setIdpt(travelObj.getString("idpt"));
-            mTravelInfo.setAddress(travelObj.getString("address"));
-            mTravelInfo.setxPostDate(travelObj.getString("xpostDate"));
-            mTravelInfo.setFile(populateImgUrl(travelObj.getString("file")));
-            mTravelInfo.setLangInfo(travelObj.getString("langinfo"));
-            mTravelInfo.setPoi(travelObj.getString("POI"));
-            mTravelInfo.setInfo(travelObj.getString("info"));
-            mTravelInfo.setLongitude(travelObj.getString("longitude"));
-            mTravelInfo.setLatitude(travelObj.getString("latitude"));
-            mTravelInfo.setMrt(travelObj.getString("MRT"));
+            travelInfo.setId(travelObj.getString("_id"));
+            travelInfo.setRowNumber(travelObj.getString("RowNumber"));
+            travelInfo.setRefWp(travelObj.getString("REF_WP"));
+            travelInfo.setCat1(travelObj.getString("CAT1"));
+            travelInfo.setCat2(travelObj.getString("CAT2"));
+            travelInfo.setSerialNo(travelObj.getString("SERIAL_NO"));
+            travelInfo.setMemoTime(travelObj.getString("MEMO_TIME"));
+            travelInfo.setStitle(travelObj.getString("stitle"));
+            travelInfo.setxBody(travelObj.getString("xbody"));
+            travelInfo.setAvBegin(travelObj.getString("avBegin"));
+            travelInfo.setAvEnd(travelObj.getString("avEnd"));
+            travelInfo.setIdpt(travelObj.getString("idpt"));
+            travelInfo.setAddress(travelObj.getString("address"));
+            travelInfo.setxPostDate(travelObj.getString("xpostDate"));
+            travelInfo.setFile(populateImgUrl(travelObj.getString("file")));
+            travelInfo.setLangInfo(travelObj.getString("langinfo"));
+            travelInfo.setPoi(travelObj.getString("POI"));
+            travelInfo.setInfo(travelObj.getString("info"));
+            travelInfo.setLongitude(travelObj.getString("longitude"));
+            travelInfo.setLatitude(travelObj.getString("latitude"));
+            travelInfo.setMrt(travelObj.getString("MRT"));
 
-            travelInfoList.add(mTravelInfo);
+            mTravelInfoList.add(travelInfo);
         }
 
     }
