@@ -1,14 +1,17 @@
 package com.felix.travel.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.felix.travel.R;
+import com.felix.travel.activity.TravelDetailActivity;
 import com.felix.travel.bean.TravelInfo;
 import com.squareup.picasso.Picasso;
 
@@ -38,7 +41,7 @@ public class TravelAreaAdapter extends RecyclerView.Adapter<TravelAreaAdapter.My
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        TravelInfo travelInfo = travelInfoList.get(position);
+        final TravelInfo travelInfo = travelInfoList.get(position);
         holder.mTravelTitle.setText(mContext.getResources().getString(R.string.travel_area_name) + travelInfo.getStitle());
         holder.mTravelStation.setText(mContext.getResources().getString(R.string.travel_area_station) + travelInfo.getMrt());
 
@@ -46,6 +49,16 @@ public class TravelAreaAdapter extends RecyclerView.Adapter<TravelAreaAdapter.My
                 .load(travelInfo.getFile())
                 .fit()
                 .into(holder.mTravelCover);
+
+        holder.mTravelAreaLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, TravelDetailActivity.class);
+                intent.putExtra("travelAreaName", travelInfo.getStitle());
+                intent.putExtra("travelAreaDetail", travelInfo.getxBody());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -56,12 +69,14 @@ public class TravelAreaAdapter extends RecyclerView.Adapter<TravelAreaAdapter.My
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView mTravelTitle, mTravelStation;
         private ImageView mTravelCover;
+        private RelativeLayout mTravelAreaLayout;
 
         public MyViewHolder(View view) {
             super(view);
             mTravelTitle = (TextView) view.findViewById(R.id.tv_app_travel_area_name);
             mTravelStation = (TextView) view.findViewById(R.id.tv_app_travel_station_name);
             mTravelCover = (ImageView) view.findViewById(R.id.iv_travel_cover);
+            mTravelAreaLayout = (RelativeLayout) view.findViewById(R.id.layout_app_travel_area);
         }
     }
 
