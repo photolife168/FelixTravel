@@ -22,12 +22,6 @@ public class TutorialActivity extends AppCompatActivity {
 
     private List<ImageView> mImageViewList = null;
     private int prePosition = 0;
-    private String[] bannerTextDescArray = {
-            "第一張",
-            "第二張",
-            "第三張",
-            "第四張"
-    };
     private boolean isStop = false;
     private long scrollTimeOffset = 5000;
     private ViewPager mViewPager;
@@ -77,7 +71,6 @@ public class TutorialActivity extends AppCompatActivity {
         mViewPager.setAdapter(new TutorialAdapter(this, mImageViewList));
         mViewPager.addOnPageChangeListener(new BannerPageChangeListener());
 
-        tvBannerTextDesc.setText(bannerTextDescArray[0]);
         layoutCircleGroup.getChildAt(0).setEnabled(true);
         mViewPager.setCurrentItem(0);
     }
@@ -104,7 +97,6 @@ public class TutorialActivity extends AppCompatActivity {
         @Override
         public void onPageSelected(int position) {
             int newPositon = position % mImageViewList.size();
-            //tvBannerTextDesc.setText(bannerTextDescArray[newPositon]);
             layoutCircleGroup.getChildAt(prePosition).setEnabled(false);
             layoutCircleGroup.getChildAt(newPositon).setEnabled(true);
             prePosition = newPositon;
