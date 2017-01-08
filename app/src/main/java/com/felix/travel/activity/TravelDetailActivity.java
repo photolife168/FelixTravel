@@ -1,19 +1,13 @@
 package com.felix.travel.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.felix.travel.MainActivity;
 import com.felix.travel.R;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by felixlin on 2017/1/2.

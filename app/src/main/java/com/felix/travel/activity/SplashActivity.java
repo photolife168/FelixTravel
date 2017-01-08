@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
-import com.felix.travel.MainActivity;
 import com.felix.travel.R;
 
 /**
@@ -25,7 +24,8 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                //Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, TutorialActivity.class);
                 startActivity(intent);
             }
         }, 3000);

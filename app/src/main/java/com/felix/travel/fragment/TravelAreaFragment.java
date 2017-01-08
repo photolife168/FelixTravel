@@ -1,4 +1,4 @@
-package com.felix.travel;
+package com.felix.travel.fragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.felix.travel.R;
 import com.felix.travel.adapter.TravelAreaAdapter;
 import com.felix.travel.api.TravelAPI;
 import com.felix.travel.bean.TravelInfo;

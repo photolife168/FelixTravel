@@ -29,6 +29,10 @@
         <activity
             android:name=".activity.TravelDetailActivity">
         </activity>
+
+        <activity
+            android:name=".activity.TutorialActivity">
+        </activity>
     </application>
 
 </manifest>

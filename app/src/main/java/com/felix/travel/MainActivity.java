@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.felix.travel.adapter.MyFragmentAdapter;
+
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
 
@@ -127,13 +129,11 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     @Override
     public void onBackPressed() {
-
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
-
     }
 
     @Override
