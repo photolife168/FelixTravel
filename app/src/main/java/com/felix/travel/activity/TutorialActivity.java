@@ -96,6 +96,9 @@ public class TutorialActivity extends AppCompatActivity {
 
         @Override
         public void onPageSelected(int position) {
+            if(position == 3){
+                
+            }
             int newPositon = position % mImageViewList.size();
             layoutCircleGroup.getChildAt(prePosition).setEnabled(false);
             layoutCircleGroup.getChildAt(newPositon).setEnabled(true);

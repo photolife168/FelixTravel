@@ -1,11 +1,14 @@
 package com.felix.travel.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.felix.travel.MainActivity;
 
 import java.util.List;
 
@@ -31,13 +34,15 @@ public class TutorialAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View view = mImageViewList.get(position % mImageViewList.size());
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext, "Page被點擊了", Toast.LENGTH_SHORT).show();
-            }
-
-        });
+        if(position == 3){
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, MainActivity.class);
+                    mContext.startActivity(intent);
+                }
+            });
+        }
 
         container.addView(view);
         return view;
