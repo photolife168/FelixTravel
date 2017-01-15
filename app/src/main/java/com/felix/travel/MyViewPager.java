@@ -19,7 +19,6 @@ import java.util.List;
 public class MyViewPager extends ViewPager {
 
     public List<Fragment> fragmentList = new ArrayList<Fragment>();
-    private boolean noScroll = true;
 
     public MyViewPager(Context context) {
         super(context);
@@ -33,28 +32,16 @@ public class MyViewPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (noScroll)
-            return false;
-        else
-            return super.onInterceptTouchEvent(ev);
+        return super.onInterceptTouchEvent(ev);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        if (noScroll)
-            return false;
-        else
-            return super.onTouchEvent(ev);
+        return super.onTouchEvent(ev);
     }
 
     public List<Fragment> getFragmentList() {
         return fragmentList;
-    }
-
-
-
-    public void setNoScroll(boolean noScroll) {
-        this.noScroll = noScroll;
     }
 
     private void init() {

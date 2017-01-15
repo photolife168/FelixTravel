@@ -14,17 +14,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.felix.travel.adapter.MyFragmentAdapter;
+import com.felix.travel.adapter.FragmentAdapter;
 
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
 
-    private static final String NAV_ITEM_ID = "nav_index";
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private NavigationView mNavigationView;
-    private BottomTab myTabLayout;
-    private MyViewPager myViewPager;
+    private MyViewPager mViewPager;
+    private TabLayout mTabLayout;
     private int navItemId;
 
 
@@ -55,28 +54,37 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(NAV_ITEM_ID, navItemId);
     }
 
     private void init(Bundle savedInstanceState){
+        initToolbar();
         initView();
+        initViewPager();
         initListeners(savedInstanceState);
     }
 
-
-    private void navigateTo(MenuItem menuItem){
-        navItemId = menuItem.getItemId();
-        menuItem.setChecked(true);
+    private void initToolbar(){
+        mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        setSupportActionBar(mToolbar);
     }
 
     private void initView(){
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
-        myTabLayout= (BottomTab) findViewById(R.id.tabLayout);
-        myViewPager= (MyViewPager) findViewById(R.id.viewPager);
+        mTabLayout= (TabLayout) findViewById(R.id.tabLayout);
+        mViewPager = (MyViewPager) findViewById(R.id.viewPager);
+    }
+
+    private void initViewPager(){
+        //viewpager
+        mViewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), mViewPager.getFragmentList()));
+
+        //tablayout
+        mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.getTabAt(0).setText(getResources().getString(R.string.main_bottom_tab_title_1)).setIcon(R.drawable.ic_store_24dp);
+        mTabLayout.getTabAt(1).setText(getResources().getString(R.string.main_bottom_tab_title_2)).setIcon(R.drawable.ic_subway_24dp);
+        mTabLayout.getTabAt(2).setText(getResources().getString(R.string.main_bottom_tab_title_3)).setIcon(R.drawable.ic_food_24dp);
+        mTabLayout.setOnTabSelectedListener(this);
     }
 
     private void initListeners(Bundle savedInstanceState){
@@ -85,8 +93,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 Toast.makeText(MainActivity.this, menuItem.getTitle() + " pressed", Toast.LENGTH_LONG).show();
-                navigateTo(menuItem);
-
                 mDrawerLayout.closeDrawers();
                 return true;
             }
@@ -107,24 +113,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-        if(null != savedInstanceState){
-            navItemId = savedInstanceState.getInt(NAV_ITEM_ID, R.id.navigation_item_1);
-        }
-        else{
-            navItemId = R.id.navigation_item_1;
-        }
-
-        navigateTo(mNavigationView.getMenu().findItem(navItemId));
-
-
-        MyFragmentAdapter myfragAdapter = new MyFragmentAdapter(getSupportFragmentManager(),
-                myViewPager.getFragmentList());
-
-        myViewPager.setAdapter(myfragAdapter);
-        myViewPager.setOffscreenPageLimit(2);
-
-        myTabLayout.setOnTabSelectedListener(this);
-
     }
 
     @Override
@@ -138,14 +126,11 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-        Log.i("TAB", "selected" + tab.getPosition());
-        tab.setIcon(BottomTab.tabIcon_bule[tab.getPosition()]);
-        myViewPager.setCurrentItem(tab.getPosition());
+
     }
 
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
-        tab.setIcon(BottomTab.tabIcon_gray[tab.getPosition()]);
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.felix.travel.R;
@@ -38,6 +39,7 @@ public class TravelAreaFragment extends Fragment {
     private TextView mTvAreaInfo;
     private RecyclerView mTravelInfoRecyclerView;
     private TravelAreaAdapter mTravelAreaAdapter;
+    private ProgressBar mProgressBar;
     private List<TravelInfo> mTravelInfoList= new ArrayList<>();
 
     public TravelAreaFragment() {
@@ -48,7 +50,7 @@ public class TravelAreaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate layout
         View view = inflater.inflate(R.layout.fragment_travel_area, container, false);
-        mTravelInfoRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_app_travel_area);
+        init(view);
 
         mTravelAreaAdapter = new TravelAreaAdapter(getActivity(), mTravelInfoList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -56,12 +58,22 @@ public class TravelAreaFragment extends Fragment {
         mTravelInfoRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mTravelInfoRecyclerView.setAdapter(mTravelAreaAdapter);
 
+        return view;
+    }
 
+    private void init(View view){
+        initView(view);
+        loadTravelData();
+    }
+
+    private void initView(View view){
+        mTravelInfoRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_app_travel_area);
+        mProgressBar = (ProgressBar) view.findViewById(R.id.progressbar_travel_area);
+    }
+
+    private void loadTravelData(){
         GetTravelInfo getTravelInfo = new GetTravelInfo();
         getTravelInfo.execute();
-
-
-        return view;
     }
 
 
@@ -106,6 +118,7 @@ public class TravelAreaFragment extends Fragment {
             }
             mTravelAreaAdapter.setItems(mTravelInfoList);
             mTravelAreaAdapter.notifyDataSetChanged();
+            mProgressBar.setVisibility(View.GONE);
         }
     }
 

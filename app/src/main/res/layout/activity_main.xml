@@ -12,13 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/abc_action_bar_default_height_material"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        <include layout="@layout/toolbar" android:id="@+id/toolbar_main"/>
 
         <com.felix.travel.MyViewPager
             android:id="@+id/viewPager"
@@ -28,7 +22,7 @@
             android:scrollbars="none">
         </com.felix.travel.MyViewPager>
 
-        <com.felix.travel.BottomTab
+        <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -37,7 +31,7 @@
             app:tabMode="fixed"
             app:tabSelectedTextColor="#FF4081"
             app:tabTextColor="#000">
-        </com.felix.travel.BottomTab>
+        </android.support.design.widget.TabLayout>
 
     </LinearLayout>
 
