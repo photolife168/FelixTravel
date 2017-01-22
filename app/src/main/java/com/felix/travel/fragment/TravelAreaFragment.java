@@ -72,12 +72,12 @@ public class TravelAreaFragment extends Fragment {
     }
 
     private void loadTravelData(){
-        GetTravelInfo getTravelInfo = new GetTravelInfo();
+        GetTravelInfoAsyncTask getTravelInfo = new GetTravelInfoAsyncTask();
         getTravelInfo.execute();
     }
 
 
-    private class GetTravelInfo extends AsyncTask<String, Integer, JSONArray> {
+    private class GetTravelInfoAsyncTask extends AsyncTask<String, Integer, JSONArray> {
 
         @Override
         protected JSONArray doInBackground(String... params) {
