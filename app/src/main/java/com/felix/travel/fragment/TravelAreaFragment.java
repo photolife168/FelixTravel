@@ -1,11 +1,13 @@
 package com.felix.travel.fragment;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import greendao.DaoMaster;
+import greendao.DaoSession;
+import greendao.Travel;
+import greendao.TravelDao;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -41,6 +47,8 @@ public class TravelAreaFragment extends Fragment {
     private TravelAreaAdapter mTravelAreaAdapter;
     private ProgressBar mProgressBar;
     private List<TravelInfo> mTravelInfoList= new ArrayList<>();
+    private TravelDao mTravelDao;
+    private List<Travel> dbTravelList;
 
     public TravelAreaFragment() {
 
@@ -63,6 +71,7 @@ public class TravelAreaFragment extends Fragment {
 
     private void init(View view){
         initView(view);
+        initDao();
         loadTravelData();
     }
 
@@ -71,9 +80,55 @@ public class TravelAreaFragment extends Fragment {
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressbar_travel_area);
     }
 
+    private void initDao(){
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(getActivity(),"felix-db",null);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        DaoMaster daoMaster = new DaoMaster(db);
+        DaoSession daoSession = daoMaster.newSession();
+        mTravelDao = daoSession.getTravelDao();
+    }
+
     private void loadTravelData(){
-        GetTravelInfoAsyncTask getTravelInfo = new GetTravelInfoAsyncTask();
-        getTravelInfo.execute();
+        GetTravelInfoFromDBAsyncTask getTravelInfoFromDBAsyncTask = new GetTravelInfoFromDBAsyncTask();
+        getTravelInfoFromDBAsyncTask.execute();
+    }
+
+    private class GetTravelInfoFromDBAsyncTask extends AsyncTask<Void, Integer, List<Travel>>{
+
+        @Override
+        protected List<Travel> doInBackground(Void... params) {
+
+            dbTravelList = mTravelDao.loadAll();
+            if(dbTravelList != null){
+                for(Travel dbTravel : dbTravelList){
+                    Log.d("db travel=", dbTravel.getArea_name());
+                    Log.d("-","-");
+                }
+            }
+
+            return dbTravelList;
+        }
+
+        @Override
+        protected void onPostExecute(List<Travel> dbTravelList) {
+            super.onPostExecute(dbTravelList);
+            if(dbTravelList == null){
+                Log.d("db no data..","aa");
+                GetTravelInfoAsyncTask getTravelInfo = new GetTravelInfoAsyncTask();
+                getTravelInfo.execute();
+            }else{
+                for(Travel travel : dbTravelList){
+                    TravelInfo travelInfo = new TravelInfo();
+                    travelInfo.setStitle(travel.getArea_name());
+                    travelInfo.setMrt(travel.getArea_station());
+                    travelInfo.setFile(travel.getArea_pic());
+                    mTravelInfoList.add(travelInfo);
+                }
+                mTravelAreaAdapter.setItems(mTravelInfoList);
+                mTravelAreaAdapter.notifyDataSetChanged();
+                mProgressBar.setVisibility(View.GONE);
+            }
+        }
     }
 
 
@@ -119,6 +174,8 @@ public class TravelAreaFragment extends Fragment {
             mTravelAreaAdapter.setItems(mTravelInfoList);
             mTravelAreaAdapter.notifyDataSetChanged();
             mProgressBar.setVisibility(View.GONE);
+            insertDB();
+
         }
     }
 
@@ -165,5 +222,32 @@ public class TravelAreaFragment extends Fragment {
         String noProtocalUrl = imgUrl.substring(0, location + 4);
         String httpsUrl = "https" + noProtocalUrl.substring(4, noProtocalUrl.length());
         return httpsUrl;
+    }
+
+    private void insertDB(){
+        List<Travel> travelList = new ArrayList<>();
+        for(TravelInfo travelInfo : mTravelInfoList){
+            Travel travel = new Travel();
+            travel.setArea_name(travelInfo.getStitle());
+            travel.setArea_station(travelInfo.getMrt());
+            travel.setArea_pic(travelInfo.getFile());
+
+            travelList.add(travel);
+        }
+
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(getActivity(),"felix-db",null);
+
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        DaoMaster daoMaster = new DaoMaster(db);
+
+        DaoSession daoSession = daoMaster.newSession();
+
+        mTravelDao = daoSession.getTravelDao();
+
+        for(Travel travel : travelList){
+            mTravelDao.insert(travel);
+        }
+
     }
 }
