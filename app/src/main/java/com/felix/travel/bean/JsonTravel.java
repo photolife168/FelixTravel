@@ -3,7 +3,7 @@ package com.felix.travel.bean;
 /**
  * Created by felixlin on 2016/12/7.
  */
-public class TravelInfo {
+public class JsonTravel {
 
     private String id;
     private String rowNumber;
@@ -197,7 +197,7 @@ public class TravelInfo {
 
     @Override
     public String toString() {
-        return "TravelInfo{" +
+        return "TravelInfo1{" +
                 "id='" + id + '\'' +
                 ", rowNumber='" + rowNumber + '\'' +
                 ", refWp='" + refWp + '\'' +

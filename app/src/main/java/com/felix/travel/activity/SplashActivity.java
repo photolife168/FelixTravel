@@ -37,6 +37,6 @@ public class SplashActivity extends AppCompatActivity {
 
     private void initview(){
         mSplashView = (ImageView) findViewById(R.id.iv_activity_splash);
-        mSplashView.setImageResource(R.drawable.splash_example);
+        //mSplashView.setImageResource(R.drawable.splash_example);
     }
 }
