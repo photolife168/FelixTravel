@@ -3,8 +3,8 @@ package com.felix.travel.util;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import greendao.DaoMaster;
-import greendao.DaoSession;
+import greendao.dao.DaoMaster;
+import greendao.dao.DaoSession;
 
 /**
  * Created by felixlin on 2017/2/2.

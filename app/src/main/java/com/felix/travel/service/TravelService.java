@@ -15,8 +15,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import greendao.Travel;
-import greendao.TravelDao;
+import greendao.bean.Travel;
+import greendao.dao.TravelGreenDao;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -30,14 +30,14 @@ public class TravelService {
 
     private Context mContext;
     private List<Travel> dbTravelList;
-    private TravelDao mTravelDao ;
+    private TravelGreenDao mTravelDao ;
     private List<JsonTravel> mJsonTravelList = new ArrayList<>();
 
     private TraveAreaApiCallback mTraveAreaApiCallback;
 
     public TravelService(Context context){
         mContext = context;
-        mTravelDao = DBUtils.getDaoSession(mContext).getTravelDao();
+        mTravelDao = DBUtils.getDaoSession(mContext).getTravelGreenDao();
     }
 
     public void loadTravelInfo(TraveAreaApiCallback callback){
