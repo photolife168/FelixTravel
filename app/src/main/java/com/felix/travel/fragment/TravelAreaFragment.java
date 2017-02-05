@@ -16,6 +16,7 @@ import com.felix.travel.R;
 import com.felix.travel.adapter.TravelAreaAdapter;
 import com.felix.travel.bean.JsonTravel;
 import com.felix.travel.callback.TraveAreaApiCallback;
+import com.felix.travel.service.ITravelService;
 import com.felix.travel.service.impl.TravelService;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class TravelAreaFragment extends Fragment implements TraveAreaApiCallback
     private ProgressBar mProgressBar;
     private RecyclerView mRecyclerViewTravelInfo;
     private TravelAreaAdapter mTravelAreaAdapter;
-    private TravelService mTravelService;
+    private ITravelService mITravelService;
 
 
     public TravelAreaFragment() {
@@ -61,11 +62,11 @@ public class TravelAreaFragment extends Fragment implements TraveAreaApiCallback
     }
 
     private void initService(){
-        mTravelService = new TravelService(mContext);
+        mITravelService = new TravelService(mContext);
     }
 
     private void loadTravelData(){
-        mTravelService.loadTravelInfoFromDB(this);
+        mITravelService.loadTravelInfoFromDB(this);
     }
 
     @Override
@@ -84,7 +85,7 @@ public class TravelAreaFragment extends Fragment implements TraveAreaApiCallback
     @Override
     public void onLoadDBCompleted(List<Travel> dbTravelList) {
         if(dbTravelList.isEmpty()){
-           mTravelService.getTravelInfoFromAPI(this);
+           mITravelService.getTravelInfoFromAPI(this);
         }else{
             setRecyclerViewData(dbTravelList);
         }
