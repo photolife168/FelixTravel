@@ -18,7 +18,10 @@ import com.felix.travel.bean.JsonTravel;
 import com.felix.travel.callback.TraveAreaApiCallback;
 import com.felix.travel.service.TravelService;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import greendao.bean.Travel;
 
 
 /**
@@ -62,26 +65,55 @@ public class TravelAreaFragment extends Fragment implements TraveAreaApiCallback
     }
 
     private void loadTravelData(){
-        mTravelService.loadTravelInfo(this);
+        mTravelService.loadTravelInfoFromDB(this);
     }
 
     @Override
     public void onSuccess(List<JsonTravel> jsonTravelList) {
+        if(jsonTravelList != null){
+           List<Travel> travelList = transData(jsonTravelList);
+            setRecyclerViewData(travelList);
+        }
+    }
 
-        mTravelAreaAdapter = new TravelAreaAdapter(getActivity(), jsonTravelList);
+    @Override
+    public void onFailed(List<JsonTravel> jsonTravelList) {
+
+    }
+
+    @Override
+    public void onLoadDBCompleted(List<Travel> dbTravelList) {
+        if(dbTravelList.isEmpty()){
+           mTravelService.getTravelInfoFromAPI(this);
+        }else{
+            setRecyclerViewData(dbTravelList);
+        }
+    }
+
+    private List<Travel> transData(List<JsonTravel> jsonTravelList){
+        List<Travel> travelList = new ArrayList<>();
+        for(JsonTravel jsonTravel : jsonTravelList){
+            Travel travel = new Travel();
+            travel.setArea_name(jsonTravel.getStitle());
+            travel.setArea_station(jsonTravel.getMrt());
+            travel.setArea_pic(jsonTravel.getFile());
+            travel.setArea_desc(jsonTravel.getxBody());
+            travelList.add(travel);
+        }
+        return travelList;
+    }
+
+    private void setRecyclerViewData(List<Travel> travelList){
+        mTravelAreaAdapter = new TravelAreaAdapter(getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerViewTravelInfo.setLayoutManager(mLayoutManager);
         mRecyclerViewTravelInfo.setItemAnimator(new DefaultItemAnimator());
         mRecyclerViewTravelInfo.setAdapter(mTravelAreaAdapter);
 
-        mTravelAreaAdapter.setItems(jsonTravelList);
+        mTravelAreaAdapter.setItems(travelList);
         mTravelAreaAdapter.notifyDataSetChanged();
         mProgressBar.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onfailed(List<JsonTravel> jsonTravelList) {
-
-    }
 
 }

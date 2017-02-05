@@ -17,17 +17,18 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import greendao.bean.Travel;
+
 /**
  * Created by felixlin on 2016/12/6.
  */
 public class TravelAreaAdapter extends RecyclerView.Adapter<TravelAreaAdapter.MyViewHolder> {
 
-    private List<JsonTravel> jsonTravelList;
+    private List<Travel> travelList;
     private Context mContext;
 
-    public TravelAreaAdapter(Context context, List<JsonTravel> jsonTravelList) {
+    public TravelAreaAdapter(Context context) {
         this.mContext = context;
-        this.jsonTravelList = jsonTravelList;
     }
 
 
@@ -41,12 +42,12 @@ public class TravelAreaAdapter extends RecyclerView.Adapter<TravelAreaAdapter.My
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        final JsonTravel jsonTravel = jsonTravelList.get(position);
-        holder.mTravelTitle.setText(mContext.getResources().getString(R.string.travel_area_name) + jsonTravel.getStitle());
-        holder.mTravelStation.setText(mContext.getResources().getString(R.string.travel_area_station) + jsonTravel.getMrt());
+        final Travel travel = travelList.get(position);
+        holder.mTravelTitle.setText(mContext.getResources().getString(R.string.travel_area_name) + travel.getArea_name());
+        holder.mTravelStation.setText(mContext.getResources().getString(R.string.travel_area_station) + travel.getArea_station());
 
         Picasso.with(mContext)
-                .load(jsonTravel.getFile())
+                .load(travel.getArea_pic())
                 .fit()
                 .into(holder.mTravelCover);
 
@@ -54,8 +55,8 @@ public class TravelAreaAdapter extends RecyclerView.Adapter<TravelAreaAdapter.My
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, TravelDetailActivity.class);
-                intent.putExtra("travelAreaName", jsonTravel.getStitle());
-                intent.putExtra("travelAreaDetail", jsonTravel.getxBody());
+                intent.putExtra("travelAreaName", travel.getArea_name());
+                intent.putExtra("travelAreaDetail", travel.getArea_desc());
                 mContext.startActivity(intent);
             }
         });
@@ -63,7 +64,7 @@ public class TravelAreaAdapter extends RecyclerView.Adapter<TravelAreaAdapter.My
 
     @Override
     public int getItemCount() {
-        return jsonTravelList.size();
+        return travelList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -80,8 +81,8 @@ public class TravelAreaAdapter extends RecyclerView.Adapter<TravelAreaAdapter.My
         }
     }
 
-    public void setItems(List<JsonTravel> jsonTravels) {
-        this.jsonTravelList = jsonTravels;
+    public void setItems(List<Travel> travelList) {
+        this.travelList = travelList;
     }
 
 }

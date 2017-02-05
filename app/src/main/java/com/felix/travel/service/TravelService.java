@@ -40,10 +40,16 @@ public class TravelService {
         mTravelDao = DBUtils.getDaoSession(mContext).getTravelGreenDao();
     }
 
-    public void loadTravelInfo(TraveAreaApiCallback callback){
+    public void loadTravelInfoFromDB(TraveAreaApiCallback callback){
         mTraveAreaApiCallback = callback;
         GetTravelInfoFromDBAsyncTask getTravelInfoFromDBAsyncTask = new GetTravelInfoFromDBAsyncTask();
         getTravelInfoFromDBAsyncTask.execute();
+    }
+
+    public void getTravelInfoFromAPI(TraveAreaApiCallback callback){
+        mTraveAreaApiCallback = callback;
+        GetTravelInfoAsyncTask getTravelInfo = new GetTravelInfoAsyncTask();
+        getTravelInfo.execute();
     }
 
     private class GetTravelInfoFromDBAsyncTask extends AsyncTask<Void, Integer, List<Travel>> {
@@ -57,20 +63,7 @@ public class TravelService {
         @Override
         protected void onPostExecute(List<Travel> dbTravelList) {
             super.onPostExecute(dbTravelList);
-            if(dbTravelList == null){
-                GetTravelInfoAsyncTask getTravelInfo = new GetTravelInfoAsyncTask();
-                getTravelInfo.execute();
-            }else{
-                for(Travel travel : dbTravelList){
-                    JsonTravel jsonTravel = new JsonTravel();
-                    jsonTravel.setStitle(travel.getArea_name());
-                    jsonTravel.setMrt(travel.getArea_station());
-                    jsonTravel.setFile(travel.getArea_pic());
-                    jsonTravel.setxBody(travel.getArea_desc());
-                    mJsonTravelList.add(jsonTravel);
-                }
-                mTraveAreaApiCallback.onSuccess(mJsonTravelList);
-            }
+            mTraveAreaApiCallback.onLoadDBCompleted(dbTravelList);
         }
     }
 
