@@ -13,6 +13,7 @@ public class MyTravelDaoGenerator {
         box.addStringProperty("area_name");
         box.addStringProperty("area_station");
         box.addStringProperty("area_pic");
+        box.addStringProperty("area_desc");
         new DaoGenerator().generateAll(schema, "app/src/main/FelixGreenDAO");
     }
 }

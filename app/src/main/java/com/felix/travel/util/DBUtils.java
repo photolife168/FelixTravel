@@ -1,4 +1,4 @@
-package com.felix.travel.helper;
+package com.felix.travel.util;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,11 +9,11 @@ import greendao.DaoSession;
 /**
  * Created by felixlin on 2017/2/2.
  */
-public class DBHelper {
+public class DBUtils {
 
     private Context mContext;
 
-    public DBHelper(Context context){
+    public DBUtils(Context context){
         this.mContext = context;
     }
 

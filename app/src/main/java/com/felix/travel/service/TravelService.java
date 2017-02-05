@@ -76,6 +76,7 @@ public class TravelService {
                     jsonTravel.setStitle(travel.getArea_name());
                     jsonTravel.setMrt(travel.getArea_station());
                     jsonTravel.setFile(travel.getArea_pic());
+                    jsonTravel.setxBody(travel.getArea_desc());
                     mJsonTravelList.add(jsonTravel);
                 }
                 mTraveAreaApiCallback.onSuccess(mJsonTravelList);
@@ -183,7 +184,7 @@ public class TravelService {
             travel.setArea_name(jsonTravel.getStitle());
             travel.setArea_station(jsonTravel.getMrt());
             travel.setArea_pic(jsonTravel.getFile());
-
+            travel.setArea_desc(jsonTravel.getxBody());
             travelList.add(travel);
         }
 
