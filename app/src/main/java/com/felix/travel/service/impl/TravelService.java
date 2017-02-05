@@ -1,4 +1,4 @@
-package com.felix.travel.service;
+package com.felix.travel.service.impl;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import com.felix.travel.api.TravelAPI;
 import com.felix.travel.bean.JsonTravel;
 import com.felix.travel.callback.TraveAreaApiCallback;
+import com.felix.travel.service.ITravelService;
 import com.felix.travel.util.DBUtils;
 
 import org.json.JSONArray;
@@ -26,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by felixlin on 2017/2/4.
  */
-public class TravelService {
+public class TravelService implements ITravelService{
 
     private Context mContext;
     private List<Travel> dbTravelList;

@@ -16,7 +16,7 @@ import com.felix.travel.R;
 import com.felix.travel.adapter.TravelAreaAdapter;
 import com.felix.travel.bean.JsonTravel;
 import com.felix.travel.callback.TraveAreaApiCallback;
-import com.felix.travel.service.TravelService;
+import com.felix.travel.service.impl.TravelService;
 
 import java.util.ArrayList;
 import java.util.List;
