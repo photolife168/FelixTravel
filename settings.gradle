@@ -1,1 +1,1 @@
-include ':app', 'myTravelDaoGenerator'
+include ':app', 'greenDaoGenerator'

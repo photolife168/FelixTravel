@@ -1,4 +1,4 @@
-project(':myTravelDaoGenerator') {
+project(':greenDaoGenerator') {
     apply plugin: 'application'
     apply plugin: 'java'
 
