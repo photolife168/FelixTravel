@@ -12,17 +12,31 @@ import greendao.DaoSession;
 public class DBUtils {
 
     private Context mContext;
+    private static String FELIX_TRAVEL_DB_NAME = "felix-db";
 
-    public DBUtils(Context context){
-        this.mContext = context;
+    private static SQLiteDatabase db;
+    private static DaoMaster mDaoMaster;
+    private static DaoSession mDaoSession;
+
+
+    public static DaoSession getDaoSession(Context context){
+        if(mDaoSession == null){
+            initDB(context);
+        }
+        return mDaoSession;
     }
 
-    public DaoSession getDaoSession(){
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(mContext,"felix-db",null);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        DaoMaster daoMaster = new DaoMaster(db);
-        return daoMaster.newSession();
+    private static void clearSession(){
+        if(mDaoSession != null){
+            mDaoSession.clear();
+        }
     }
 
+    private static void initDB(Context context){
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, FELIX_TRAVEL_DB_NAME, null);
+        db = helper.getWritableDatabase();
+        mDaoMaster = new DaoMaster(db);
+        mDaoSession = mDaoMaster.newSession();
+    }
 
 }

@@ -1,12 +1,12 @@
 package com.felix.travel.service;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 
 import com.felix.travel.api.TravelAPI;
 import com.felix.travel.bean.JsonTravel;
 import com.felix.travel.callback.TraveAreaApiCallback;
+import com.felix.travel.util.DBUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,8 +15,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import greendao.DaoMaster;
-import greendao.DaoSession;
 import greendao.Travel;
 import greendao.TravelDao;
 import okhttp3.ResponseBody;
@@ -39,15 +37,7 @@ public class TravelService {
 
     public TravelService(Context context){
         mContext = context;
-        initDao();
-    }
-
-    private void initDao(){
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(mContext,"felix-db",null);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        DaoMaster daoMaster = new DaoMaster(db);
-        DaoSession daoSession = daoMaster.newSession();
-        mTravelDao = daoSession.getTravelDao();
+        mTravelDao = DBUtils.getDaoSession(mContext).getTravelDao();
     }
 
     public void loadTravelInfo(TraveAreaApiCallback callback){
