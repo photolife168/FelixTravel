@@ -1,10 +1,10 @@
 package com.felix.travel.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,8 +25,9 @@ public class TutorialActivity extends AppCompatActivity {
     private boolean isStop = false;
     private long scrollTimeOffset = 5000;
     private ViewPager mViewPager;
-    private TextView tvBannerTextDesc;
+    private TextView mTvBannerTextDesc;
     private LinearLayout layoutCircleGroup;
+    private Button mBtnStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,8 @@ public class TutorialActivity extends AppCompatActivity {
     private void initView() {
         mViewPager = (ViewPager) findViewById(R.id.viewpager_tutorial_page);
         layoutCircleGroup = (LinearLayout) findViewById(R.id.ll_circle_group);
-        tvBannerTextDesc = (TextView) findViewById(R.id.tv_banner_text_desc);
+        mTvBannerTextDesc = (TextView) findViewById(R.id.tv_banner_text_desc);
+        mBtnStart = (Button) findViewById(R.id.btn_start);
     }
 
     private void initViewPager(){
@@ -68,7 +70,7 @@ public class TutorialActivity extends AppCompatActivity {
             layoutCircleGroup.addView(circle);
         }
 
-        mViewPager.setAdapter(new TutorialAdapter(this, mImageViewList));
+        mViewPager.setAdapter(new TutorialAdapter(this, mImageViewList, mBtnStart));
         mViewPager.addOnPageChangeListener(new BannerPageChangeListener());
 
         layoutCircleGroup.getChildAt(0).setEnabled(true);

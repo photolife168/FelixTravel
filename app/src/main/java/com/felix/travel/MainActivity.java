@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.felix.travel.adapter.FragmentAdapter;
+import com.felix.travel.fragment.TravelViewPager;
 
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private NavigationView mNavigationView;
-    private MyViewPager mViewPager;
+    private TravelViewPager mViewPager;
     private TabLayout mTabLayout;
 
 
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         mTabLayout= (TabLayout) findViewById(R.id.tabLayout);
-        mViewPager = (MyViewPager) findViewById(R.id.viewPager);
+        mViewPager = (TravelViewPager) findViewById(R.id.viewPager);
     }
 
     private void initViewPager(){
@@ -74,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         //tablayout
         mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.getTabAt(0).setText(getResources().getString(R.string.main_bottom_tab_title_1)).setIcon(R.drawable.ic_store_24dp);
-        mTabLayout.getTabAt(1).setText(getResources().getString(R.string.main_bottom_tab_title_2)).setIcon(R.drawable.ic_subway_24dp);
+        mTabLayout.getTabAt(0).setText(getResources().getString(R.string.main_bottom_tab_title_1)).setIcon(R.drawable.ic_subway_24dp);
+        mTabLayout.getTabAt(1).setText(getResources().getString(R.string.main_bottom_tab_title_2)).setIcon(R.drawable.ic_store_24dp);
         mTabLayout.getTabAt(2).setText(getResources().getString(R.string.main_bottom_tab_title_3)).setIcon(R.drawable.ic_food_24dp);
         mTabLayout.setOnTabSelectedListener(this);
     }
