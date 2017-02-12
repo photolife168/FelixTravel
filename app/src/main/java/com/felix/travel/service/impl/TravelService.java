@@ -29,6 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class TravelService implements ITravelService{
 
+    private final String BASE_URL = "http://data.taipei/opendata/datalist/";
     private Context mContext;
     private List<Travel> dbTravelList;
     private TravelGreenDao mTravelDao ;
@@ -74,7 +75,7 @@ public class TravelService implements ITravelService{
         @Override
         protected JSONArray doInBackground(String... params) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://data.taipei/opendata/datalist/")
+                    .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
