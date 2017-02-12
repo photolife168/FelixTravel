@@ -1,6 +1,8 @@
 package com.felix.travel.fragment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -16,6 +18,7 @@ import com.felix.travel.R;
 import com.felix.travel.adapter.TravelAreaAdapter;
 import com.felix.travel.bean.JsonTravel;
 import com.felix.travel.callback.TraveAreaApiCallback;
+import com.felix.travel.receiver.DownloadReceiver;
 import com.felix.travel.service.ITravelService;
 import com.felix.travel.service.impl.TravelService;
 
@@ -36,6 +39,8 @@ public class TravelAreaFragment extends Fragment implements TraveAreaApiCallback
     private RecyclerView mRecyclerViewTravelInfo;
     private TravelAreaAdapter mTravelAreaAdapter;
     private ITravelService mITravelService;
+    public final static String MY_MESSAGE = "testBrocast";
+    private DownloadReceiver mDownloadReceiver;
 
 
     public TravelAreaFragment() {
@@ -63,6 +68,7 @@ public class TravelAreaFragment extends Fragment implements TraveAreaApiCallback
 
     private void initService(){
         mITravelService = new TravelService(mContext);
+        mDownloadReceiver = new DownloadReceiver(mContext);
     }
 
     private void loadTravelData(){
@@ -88,6 +94,10 @@ public class TravelAreaFragment extends Fragment implements TraveAreaApiCallback
            mITravelService.getTravelInfoFromAPI(this);
         }else{
             setRecyclerViewData(dbTravelList);
+            getActivity().registerReceiver(mDownloadReceiver, new IntentFilter(MY_MESSAGE));
+            Intent intent = new Intent();
+            intent.setAction(MY_MESSAGE);
+            getActivity().sendBroadcast(intent);
         }
     }
 
@@ -115,6 +125,5 @@ public class TravelAreaFragment extends Fragment implements TraveAreaApiCallback
         mTravelAreaAdapter.notifyDataSetChanged();
         mProgressBar.setVisibility(View.GONE);
     }
-
 
 }
