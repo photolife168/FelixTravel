@@ -40,7 +40,6 @@ public class TravelAreaFragment extends Fragment implements TraveAreaApiCallback
     private TravelAreaAdapter mTravelAreaAdapter;
     private ITravelService mITravelService;
     public final static String MY_MESSAGE = "testBrocast";
-    private DownloadReceiver mDownloadReceiver;
 
 
     public TravelAreaFragment() {
@@ -68,7 +67,6 @@ public class TravelAreaFragment extends Fragment implements TraveAreaApiCallback
 
     private void initService(){
         mITravelService = new TravelService(mContext);
-        mDownloadReceiver = new DownloadReceiver(mContext);
     }
 
     private void loadTravelData(){
@@ -94,10 +92,6 @@ public class TravelAreaFragment extends Fragment implements TraveAreaApiCallback
            mITravelService.getTravelInfoFromAPI(this);
         }else{
             setRecyclerViewData(dbTravelList);
-            getActivity().registerReceiver(mDownloadReceiver, new IntentFilter(MY_MESSAGE));
-            Intent intent = new Intent();
-            intent.setAction(MY_MESSAGE);
-            getActivity().sendBroadcast(intent);
         }
     }
 

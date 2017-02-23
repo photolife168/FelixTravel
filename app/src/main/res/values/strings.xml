@@ -9,4 +9,6 @@
     <string name="main_bottom_tab_title_3">美食</string>
     <string name="travel_area_name">景點: </string>
     <string name="travel_area_station">車站: </string>
+    <string name="msg_search">Search... </string>
+    <string name="msg_search_help">Search help</string>
 </resources>

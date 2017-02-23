@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "663733373925",
+    "firebase_url": "https://felixtravel-dfa42.firebaseio.com",
+    "project_id": "felixtravel-dfa42",
+    "storage_bucket": "felixtravel-dfa42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663733373925:android:c8f614d47260877f",
+        "android_client_info": {
+          "package_name": "com.felix.travel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663733373925-bs2nmhlfr77ttqdf8esg25tnaddsfjh5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [{ "current_key": "AIzaSyCFtZkNDw3tWvG7nSzzIF_QL594rJvW8wQ" }],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

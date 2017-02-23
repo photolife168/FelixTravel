@@ -1,11 +1,15 @@
 package com.felix.travel.service.impl;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 
 import com.felix.travel.api.TravelAPI;
 import com.felix.travel.bean.JsonTravel;
 import com.felix.travel.callback.TraveAreaApiCallback;
+import com.felix.travel.fragment.TravelAreaFragment;
+import com.felix.travel.receiver.DownloadReceiver;
 import com.felix.travel.service.ITravelService;
 import com.felix.travel.util.DBUtils;
 
@@ -34,12 +38,14 @@ public class TravelService implements ITravelService{
     private List<Travel> dbTravelList;
     private TravelGreenDao mTravelDao ;
     private List<JsonTravel> mJsonTravelList = new ArrayList<>();
+    private DownloadReceiver mDownloadReceiver;
 
     private TraveAreaApiCallback mTraveAreaApiCallback;
 
     public TravelService(Context context){
         mContext = context;
         mTravelDao = DBUtils.getDaoSession(mContext).getTravelGreenDao();
+        mDownloadReceiver = new DownloadReceiver(mContext);
     }
 
     public void loadTravelInfoFromDB(TraveAreaApiCallback callback){
@@ -65,6 +71,10 @@ public class TravelService implements ITravelService{
         @Override
         protected void onPostExecute(List<Travel> dbTravelList) {
             super.onPostExecute(dbTravelList);
+            mContext.registerReceiver(mDownloadReceiver, new IntentFilter(TravelAreaFragment.MY_MESSAGE));
+            Intent intent = new Intent();
+            intent.setAction(TravelAreaFragment.MY_MESSAGE);
+            mContext.sendBroadcast(intent);
             mTraveAreaApiCallback.onLoadDBCompleted(dbTravelList);
         }
     }
