@@ -6,10 +6,6 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.felix.travel.fragment.TravelAreaFragment;
-import com.felix.travel.fragment.TravelFoodFragment;
-import com.felix.travel.fragment.TravelGiftFragment;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +42,7 @@ public class TravelViewPager extends ViewPager {
 
     private void init() {
         fragmentList.add(new TravelAreaFragment());
-        fragmentList.add(new TravelGiftFragment());
+        fragmentList.add(new TravelPlanFragment());
         fragmentList.add(new TravelFoodFragment());
     }
 }

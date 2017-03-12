@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         mTabLayout.getTabAt(0).setText(getResources().getString(R.string.main_bottom_tab_title_1)).setIcon(R.drawable.ic_subway_24dp);
         mTabLayout.getTabAt(1).setText(getResources().getString(R.string.main_bottom_tab_title_2)).setIcon(R.drawable.ic_store_24dp);
         mTabLayout.getTabAt(2).setText(getResources().getString(R.string.main_bottom_tab_title_3)).setIcon(R.drawable.ic_food_24dp);
-        mTabLayout.setOnTabSelectedListener(this);
+        mTabLayout.addOnTabSelectedListener(this);
     }
 
     private void initListeners(Bundle savedInstanceState) {
