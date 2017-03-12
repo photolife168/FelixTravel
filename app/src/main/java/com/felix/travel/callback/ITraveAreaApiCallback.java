@@ -9,7 +9,7 @@ import greendao.bean.Travel;
 /**
  * Created by felixlin on 2017/1/15.
  */
-public interface TraveAreaApiCallback {
+public interface ITraveAreaApiCallback {
 
     void onSuccess(List<JsonTravel> jsonTravelList);
     void onFailed(List<JsonTravel> jsonTravelList);

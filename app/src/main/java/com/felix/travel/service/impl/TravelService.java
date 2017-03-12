@@ -3,11 +3,19 @@ package com.felix.travel.service.impl;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkRequest;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Handler;
+import android.support.annotation.RequiresApi;
 
+import com.felix.travel.MainActivity;
 import com.felix.travel.api.TravelAPI;
 import com.felix.travel.bean.JsonTravel;
-import com.felix.travel.callback.TraveAreaApiCallback;
+import com.felix.travel.callback.ISearchResultCallback;
+import com.felix.travel.callback.ITraveAreaApiCallback;
 import com.felix.travel.fragment.TravelAreaFragment;
 import com.felix.travel.receiver.DownloadReceiver;
 import com.felix.travel.service.ITravelService;
@@ -40,7 +48,8 @@ public class TravelService implements ITravelService{
     private List<JsonTravel> mJsonTravelList = new ArrayList<>();
     private DownloadReceiver mDownloadReceiver;
 
-    private TraveAreaApiCallback mTraveAreaApiCallback;
+    private ITraveAreaApiCallback mTraveAreaApiCallback;
+    private ISearchResultCallback mISearchResultCallback;
 
     public TravelService(Context context){
         mContext = context;
@@ -48,16 +57,22 @@ public class TravelService implements ITravelService{
         mDownloadReceiver = new DownloadReceiver(mContext);
     }
 
-    public void loadTravelInfoFromDB(TraveAreaApiCallback callback){
+    public void loadTravelInfoFromDB(ITraveAreaApiCallback callback){
         mTraveAreaApiCallback = callback;
         GetTravelInfoFromDBAsyncTask getTravelInfoFromDBAsyncTask = new GetTravelInfoFromDBAsyncTask();
         getTravelInfoFromDBAsyncTask.execute();
     }
 
-    public void getTravelInfoFromAPI(TraveAreaApiCallback callback){
+    public void getTravelInfoFromAPI(ITraveAreaApiCallback callback){
         mTraveAreaApiCallback = callback;
         GetTravelInfoAsyncTask getTravelInfo = new GetTravelInfoAsyncTask();
         getTravelInfo.execute();
+    }
+
+    @Override
+    public List<Travel> getTravelListBySearchText(String searchText, ISearchResultCallback callback) {
+        mISearchResultCallback = callback;
+        return new ArrayList<Travel>();
     }
 
     private class GetTravelInfoFromDBAsyncTask extends AsyncTask<Void, Integer, List<Travel>> {
@@ -155,7 +170,20 @@ public class TravelService implements ITravelService{
 
             mJsonTravelList.add(jsonTravel);
         }
+    }
 
+    private class getTravelListBySearchTextAsyncTask extends AsyncTask<Void, Integer, List<Travel>> {
+
+        @Override
+        protected List<Travel> doInBackground(Void... params) {
+           return new ArrayList<Travel>();
+        }
+
+        @Override
+        protected void onPostExecute(List<Travel> dbTravelList) {
+            super.onPostExecute(dbTravelList);
+
+        }
     }
 
     private String populateImgUrl(String imgUrl) {
