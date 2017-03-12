@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.felix.travel.R;
 import com.felix.travel.adapter.TravelAreaAdapter;
 import com.felix.travel.bean.JsonTravel;
-import com.felix.travel.callback.TraveAreaApiCallback;
+import com.felix.travel.callback.ITraveAreaApiCallback;
 import com.felix.travel.receiver.DownloadReceiver;
 import com.felix.travel.service.ITravelService;
 import com.felix.travel.service.impl.TravelService;
@@ -31,7 +31,7 @@ import greendao.bean.Travel;
 /**
  * Created by felixlin on 2016/11/20.
  */
-public class TravelAreaFragment extends Fragment implements TraveAreaApiCallback{
+public class TravelAreaFragment extends Fragment implements ITraveAreaApiCallback {
 
     private Context mContext;
     private TextView mTvAreaInfo;

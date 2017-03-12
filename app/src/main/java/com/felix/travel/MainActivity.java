@@ -3,20 +3,13 @@ package com.felix.travel;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.felix.travel.activity.SearchResultActivity;
@@ -24,11 +17,9 @@ import com.felix.travel.adapter.FragmentAdapter;
 import com.felix.travel.fragment.TravelViewPager;
 
 
-public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
+public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
-    private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
-    private NavigationView mNavigationView;
     private TravelViewPager mViewPager;
     private TabLayout mTabLayout;
 
@@ -79,26 +70,24 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         return super.onOptionsItemSelected(item);
     }
 
-    private void init(Bundle savedInstanceState){
+    private void init(Bundle savedInstanceState) {
         initToolbar();
         initView();
         initViewPager();
         initListeners(savedInstanceState);
     }
 
-    private void initToolbar(){
+    private void initToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbar);
     }
 
-    private void initView(){
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
-        mTabLayout= (TabLayout) findViewById(R.id.tabLayout);
+    private void initView() {
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mViewPager = (TravelViewPager) findViewById(R.id.viewPager);
     }
 
-    private void initViewPager(){
+    private void initViewPager() {
         //viewpager
         mViewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), mViewPager.getFragmentList()));
 
@@ -110,41 +99,13 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         mTabLayout.setOnTabSelectedListener(this);
     }
 
-    private void initListeners(Bundle savedInstanceState){
-
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                Toast.makeText(MainActivity.this, menuItem.getTitle() + " pressed", Toast.LENGTH_LONG).show();
-                mDrawerLayout.closeDrawers();
-                return true;
-            }
-        });
-
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.openDrawer, R.string.closeDrawer){
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-        };
-
-        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
+    private void initListeners(Bundle savedInstanceState) {
 
     }
 
     @Override
     public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        super.onBackPressed();
     }
 
     @Override
@@ -159,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
     }
-
 
 
 }
