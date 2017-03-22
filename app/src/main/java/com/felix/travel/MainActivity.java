@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.felix.travel.activity.SearchResultActivity;
 import com.felix.travel.adapter.FragmentAdapter;
 import com.felix.travel.fragment.TravelViewPager;
+import com.felix.travel.viewpager.DepthPageTransformer;
 
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private void initViewPager() {
         //viewpager
         mViewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), mViewPager.getFragmentList()));
+        mViewPager.setPageTransformer(true, new DepthPageTransformer());
 
         //tablayout
         mTabLayout.setupWithViewPager(mViewPager);

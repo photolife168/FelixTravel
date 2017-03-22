@@ -41,8 +41,8 @@ public class TravelViewPager extends ViewPager {
     }
 
     private void init() {
-        fragmentList.add(new TravelAreaFragment());
-        fragmentList.add(new TravelPlanFragment());
-        fragmentList.add(new TravelFoodFragment());
+        fragmentList.add(TravelAreaFragment.newInstance());
+        fragmentList.add(TravelPlanFragment.newInstance());
+        fragmentList.add(TravelFoodFragment.newInstance());
     }
 }

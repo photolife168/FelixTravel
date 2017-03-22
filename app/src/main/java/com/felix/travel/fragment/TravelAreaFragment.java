@@ -34,6 +34,7 @@ import greendao.bean.Travel;
 public class TravelAreaFragment extends Fragment implements ITraveAreaApiCallback {
 
     private Context mContext;
+    private static TravelAreaFragment mTravelAreaFragment;
     private TextView mTvAreaInfo;
     private ProgressBar mProgressBar;
     private RecyclerView mRecyclerViewTravelInfo;
@@ -42,9 +43,13 @@ public class TravelAreaFragment extends Fragment implements ITraveAreaApiCallbac
     public final static String MY_MESSAGE = "testBrocast";
 
 
-    public TravelAreaFragment() {
-
+    public static TravelAreaFragment newInstance() {
+        if (mTravelAreaFragment == null) {
+            mTravelAreaFragment = new TravelAreaFragment();
+        }
+        return mTravelAreaFragment;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,29 +59,29 @@ public class TravelAreaFragment extends Fragment implements ITraveAreaApiCallbac
         return view;
     }
 
-    private void init(View view){
+    private void init(View view) {
         initView(view);
         initService();
         loadTravelData();
     }
 
-    private void initView(View view){
+    private void initView(View view) {
         mRecyclerViewTravelInfo = (RecyclerView) view.findViewById(R.id.recyclerview_app_travel_area);
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressbar_travel_area);
     }
 
-    private void initService(){
+    private void initService() {
         mITravelService = new TravelService(mContext);
     }
 
-    private void loadTravelData(){
+    private void loadTravelData() {
         mITravelService.loadTravelInfoFromDB(this);
     }
 
     @Override
     public void onSuccess(List<JsonTravel> jsonTravelList) {
-        if(jsonTravelList != null){
-           List<Travel> travelList = transData(jsonTravelList);
+        if (jsonTravelList != null) {
+            List<Travel> travelList = transData(jsonTravelList);
             setRecyclerViewData(travelList);
         }
     }
@@ -88,16 +93,16 @@ public class TravelAreaFragment extends Fragment implements ITraveAreaApiCallbac
 
     @Override
     public void onLoadDBCompleted(List<Travel> dbTravelList) {
-        if(dbTravelList.isEmpty()){
-           mITravelService.getTravelInfoFromAPI(this);
-        }else{
+        if (dbTravelList.isEmpty()) {
+            mITravelService.getTravelInfoFromAPI(this);
+        } else {
             setRecyclerViewData(dbTravelList);
         }
     }
 
-    private List<Travel> transData(List<JsonTravel> jsonTravelList){
+    private List<Travel> transData(List<JsonTravel> jsonTravelList) {
         List<Travel> travelList = new ArrayList<>();
-        for(JsonTravel jsonTravel : jsonTravelList){
+        for (JsonTravel jsonTravel : jsonTravelList) {
             Travel travel = new Travel();
             travel.setArea_name(jsonTravel.getStitle());
             travel.setArea_station(jsonTravel.getMrt());
@@ -108,7 +113,7 @@ public class TravelAreaFragment extends Fragment implements ITraveAreaApiCallbac
         return travelList;
     }
 
-    private void setRecyclerViewData(List<Travel> travelList){
+    private void setRecyclerViewData(List<Travel> travelList) {
         mTravelAreaAdapter = new TravelAreaAdapter(getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerViewTravelInfo.setLayoutManager(mLayoutManager);

@@ -19,10 +19,14 @@ import com.felix.travel.activity.PlanActivity;
 public class TravelPlanFragment extends Fragment {
 
     private Context mContext;
+    private static TravelPlanFragment mTravelPlanFragment;
     private FloatingActionButton mBtnFloatingAction;
 
-    public TravelPlanFragment() {
-        // Required empty public constructor
+    public static TravelPlanFragment newInstance() {
+        if (mTravelPlanFragment == null) {
+            mTravelPlanFragment = new TravelPlanFragment();
+        }
+        return mTravelPlanFragment;
     }
 
 
@@ -41,11 +45,11 @@ public class TravelPlanFragment extends Fragment {
         setListeners();
     }
 
-    private void initView(View view){
+    private void initView(View view) {
         mBtnFloatingAction = (FloatingActionButton) view.findViewById(R.id.fab_app_travel_plan);
     }
 
-    private void setListeners(){
+    private void setListeners() {
         mBtnFloatingAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
