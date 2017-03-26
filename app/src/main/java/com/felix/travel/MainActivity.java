@@ -67,9 +67,14 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
 
     private void init(Bundle savedInstanceState) {
         initToolbar();
